@@ -3,27 +3,66 @@
  * @param allPeople {Your Choice} All the people in the country.
  * @param thieves {Your Choice} All the thieves.
  * @param peopleWithRebates {Your Choice} The people you need to send rebates to.
- * @todo Implement this function to call `sendRebate` on all those who aren't thieves.
+ * @todo this takes too long to run, won't work as our solution.
  */
 function sendRebates(allPeople, thieves, peopleWithRebates) {
+  // Let's go over every person.
+  for (var i = 0; i < allPeople.length; i++) {
+    var person = allPeople[i];
+    var sendRebate = false;
+
+    // Check if they have a rebate to send.
+    for (var j = 0; j < peopleWithRebates.length; j++) {
+      var rebater = peopleWithRebates[j];
+
+      if (person.guid == rebater.guid) {
+        sendRebate = true;
+        break;
+      }
+    }
+
+    // If they don't have a rebate then we can check the next person.
+    if (!sendRebate) {
+      continue;
+    }
+
+    // We should send them a rebate but now check if they're labled a thief.
+    for (var k = 0; k < thieves.length; k++) {
+      var thief = thieves[k];
+
+      if (person.guid == thief.guid) {
+        // We've discovered a thief!
+        sendRebate = false;
+        break;
+      }
+    }
+
+    // They aren't a thief, we'll send a rebate!
+    if (sendRebate) {
+      person.sendRebate();
+    }
+  }
 }
 
-var allPeople; // Assign a datatype you'd like to use.
-var thieves; // Assign a datatype you'd like to use.
-var peopleWithRebates; // Assign a dataype you'd like to use.
+var allPeople = [];
+var thieves = [];
+var peopleWithRebates = [];
 
-// Implement these three callbacks which will add people to your allPeople variable, thieves variable and
-// peopleWithRebates variable.
 var personCallback = function (person) {
+  allPeople.push(person);
 }
 
 var thiefCallback = function (person) {
+  thieves.push(person);
 }
 
 var rebateRecipientCallback = function (person) {
+  peopleWithRebates.push(person);
 }
 
 createPopulation(personCallback, thiefCallback, rebateRecipientCallback);
+
+sendRebates(allPeople, thieves, peopleWithRebates);
 
 
 /* ===========================================================================================
@@ -37,11 +76,11 @@ createPopulation(personCallback, thiefCallback, rebateRecipientCallback);
 function Person() {
   // A quick way to add a GUID looking random number for each person. Don't change this.
   this.guid = Math.pow((1 + Math.random()) * 65536 << 0, 4).toString(16);
-}
 
-/* Send a rebate to this person. */
-Person.prototype.send = function () {
-  return this.guid;
+  /* Send a rebate to this person. */
+  Person.prototype.sendRebate = function () {
+    return this.guid;
+  }
 }
 
 /*
@@ -52,7 +91,7 @@ Person.prototype.send = function () {
  * @param rebateRecipientCallback {function} The callback to call with each person who will receive a rebate.
  */
 function createPopulation(personCallback, thiefCallback, rebateRecipientCallback) {
-  for (var i = 0; i < 10000; i++) {
+  for (var i = 0; i < 100000; i++) {
     var person = new Person();
 
     personCallback(person);
@@ -65,7 +104,7 @@ function createPopulation(personCallback, thiefCallback, rebateRecipientCallback
     }
   }
 
-  for (var i = 0; i < 10000; i++) {
+  for (var i = 0; i < 100000; i++) {
     thiefCallback(new Person());
   }
 }
