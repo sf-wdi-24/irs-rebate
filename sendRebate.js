@@ -53,7 +53,7 @@ function Person() {
  * @param rebateRecipientCallback {function} The callback to call with each person who will receive a rebate.
  */
 function createPopulation(personCallback, thiefCallback, rebateRecipientCallback) {
-  for (var i = 0; i < 10000; i++) {
+  for (var i = 0; i < 100000; i++) {
     var person = new Person();
 
     personCallback(person);
@@ -66,7 +66,7 @@ function createPopulation(personCallback, thiefCallback, rebateRecipientCallback
     }
   }
 
-  for (var i = 0; i < 10000; i++) {
+  for (var i = 0; i < 100000; i++) {
     thiefCallback(new Person());
   }
 }
