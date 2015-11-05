@@ -25,6 +25,7 @@ var rebateRecipientCallback = function (person) {
 
 createPopulation(personCallback, thiefCallback, rebateRecipientCallback);
 
+sendRebates(allPeople, thieves, peopleWithRebates);
 
 /* ===========================================================================================
  * DON'T CHANGE ANY OF THIS WHICH FOLLOWS!
@@ -37,11 +38,11 @@ createPopulation(personCallback, thiefCallback, rebateRecipientCallback);
 function Person() {
   // A quick way to add a GUID looking random number for each person. Don't change this.
   this.guid = Math.pow((1 + Math.random()) * 65536 << 0, 4).toString(16);
-}
 
-/* Send a rebate to this person. */
-Person.prototype.send = function () {
-  return this.guid;
+  /* Send a rebate to this person. */
+  Person.prototype.send = function () {
+    return this.guid;
+  }
 }
 
 /*
