@@ -64,7 +64,6 @@ createPopulation(personCallback, thiefCallback, rebateRecipientCallback);
 
 sendRebates(allPeople, thieves, peopleWithRebates);
 
-
 /* ===========================================================================================
  * DON'T CHANGE ANY OF THIS WHICH FOLLOWS!
  * =========================================================================================== */
