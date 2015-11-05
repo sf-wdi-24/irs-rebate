@@ -40,7 +40,7 @@ function Person() {
   this.guid = Math.pow((1 + Math.random()) * 65536 << 0, 4).toString(16);
 
   /* Send a rebate to this person. */
-  Person.prototype.send = function () {
+  Person.prototype.sendRebate = function () {
     return this.guid;
   }
 }
