@@ -1,26 +1,34 @@
 /*
  * Send a rebate to all the people with rebates after they've been found in the list of allPeople.
- * @param allPeople {Your Choice} All the people in the country.
- * @param thieves {Your Choice} All the thieves.
- * @param peopleWithRebates {Your Choice} The people you need to send rebates to.
- * @todo Implement this function to call `sendRebate` on all those who aren't thieves.
+ * @param allPeople {Object} All the people in the country.
+ * @param thieves {Object} All the thieves.
+ * @param peopleWithRebates {Object} The people you need to send rebates to.
  */
 function sendRebates(allPeople, thieves, peopleWithRebates) {
+  for (var guid in peopleWithRebates) {
+    if (guid in thieves) {
+      console.log("THIEF!");
+    } else {
+      console.log("Sending Rebate");
+      peopleWithRebates[guid].sendRebate();
+    }
+  }
 }
 
-var allPeople; // Assign a datatype you'd like to use.
-var thieves; // Assign a datatype you'd like to use.
-var peopleWithRebates; // Assign a dataype you'd like to use.
+var allPeople = {};
+var thieves = {};
+var peopleWithRebates = {};
 
-// Implement these three callbacks which will add people to your allPeople variable, thieves variable and
-// peopleWithRebates variable.
 var personCallback = function (person) {
+  allPeople[person.guid] = person;
 }
 
 var thiefCallback = function (person) {
+  thieves[person.guid] = person;
 }
 
 var rebateRecipientCallback = function (person) {
+  peopleWithRebates[person.guid] = person;
 }
 
 createPopulation(personCallback, thiefCallback, rebateRecipientCallback);
